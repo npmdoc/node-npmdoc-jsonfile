@@ -1,0 +1,338 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/jprichardson/node-jsonfile#readme">jsonfile (v2.4.0)</a>
+</h1>
+<h4>Easily read/write JSON files.</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jsonfile">module jsonfile</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.jsonfile.readFile">
+            function <span class="apidocSignatureSpan">jsonfile.</span>readFile
+            <span class="apidocSignatureSpan">(file, options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.jsonfile.readFileSync">
+            function <span class="apidocSignatureSpan">jsonfile.</span>readFileSync
+            <span class="apidocSignatureSpan">(file, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.jsonfile.writeFile">
+            function <span class="apidocSignatureSpan">jsonfile.</span>writeFile
+            <span class="apidocSignatureSpan">(file, obj, options, callback)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.jsonfile.writeFileSync">
+            function <span class="apidocSignatureSpan">jsonfile.</span>writeFileSync
+            <span class="apidocSignatureSpan">(file, obj, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jsonfile.</span>spaces</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jsonfile" id="apidoc.module.jsonfile">module jsonfile</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.jsonfile.readFile" id="apidoc.element.jsonfile.readFile">
+        function <span class="apidocSignatureSpan">jsonfile.</span>readFile
+        <span class="apidocSignatureSpan">(file, options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function readFile(file, options, callback) {
+  if (callback == null) {
+    callback = options
+    options = {}
+  }
+
+  if (typeof options === 'string') {
+    options = {encoding: options}
+  }
+
+  options = options || {}
+  var fs = options.fs || _fs
+
+  var shouldThrow = true
+  // DO NOT USE 'passParsingErrors' THE NAME WILL CHANGE!!!, use 'throws' instead
+  if ('passParsingErrors' in options) {
+    shouldThrow = options.passParsingErrors
+  } else if ('throws' in options) {
+    shouldThrow = options.throws
+  }
+
+  fs.readFile(file, options, function (err, data) {
+    if (err) return callback(err)
+
+    data = stripBom(data)
+
+    var obj
+    try {
+      obj = JSON.parse(data, options ? options.reviver : null)
+    } catch (err2) {
+      if (shouldThrow) {
+        err2.message = file + ': ' + err2.message
+        return callback(err2)
+      } else {
+        return callback(null, null)
+      }
+    }
+
+    callback(null, obj)
+  })
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+[![windows Build status](https://img.shields.io/appveyor/ci/jprichardson/node-jsonfile/master.svg?label=windows%20build)](https://
+ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master)
+
+&lt;a href="https://github.com/feross/standard"&gt;&lt;img src="https://cdn.rawgit.com/feross/standard/master
+/sticker.svg" alt="Standard JavaScript" width="100"&gt;&lt;/a&gt;
+
+Why?
+----
+
+Writing `JSON.stringify()` and then `fs.writeFile()` and `JSON.parse()` with `fs.<span class="apidocCodeKeywordSpan">readFile</span>()` enclosed in `try/catch` blocks became annoying.
+
+
+
+Installation
+------------
+
+npm install --save jsonfile
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.jsonfile.readFileSync" id="apidoc.element.jsonfile.readFileSync">
+        function <span class="apidocSignatureSpan">jsonfile.</span>readFileSync
+        <span class="apidocSignatureSpan">(file, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function readFileSync(file, options) {
+  options = options || {}
+  if (typeof options === 'string') {
+    options = {encoding: options}
+  }
+
+  var fs = options.fs || _fs
+
+  var shouldThrow = true
+  // DO NOT USE 'passParsingErrors' THE NAME WILL CHANGE!!!, use 'throws' instead
+  if ('passParsingErrors' in options) {
+    shouldThrow = options.passParsingErrors
+  } else if ('throws' in options) {
+    shouldThrow = options.throws
+  }
+
+  var content = fs.readFileSync(file, options)
+  content = stripBom(content)
+
+  try {
+    return JSON.parse(content, options.reviver)
+  } catch (err) {
+    if (shouldThrow) {
+      err.message = file + ': ' + err.message
+      throw err
+    } else {
+      return null
+    }
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+- `throws` (`boolean`, default: `true`). If `JSON.parse` throws an error, throw the error.
+If `false`, returns `null` for the object.
+
+```js
+var jsonfile = require('jsonfile')
+var file = '/tmp/data.json'
+
+console.dir(jsonfile.<span class="apidocCodeKeywordSpan">readFileSync</span>(file))
+```
+
+
+### writeFile(filename, obj, [options], callback)
+
+`options`: Pass in any `fs.writeFile` options or set `replacer` for a [JSON replacer](https://developer.mozilla.org/en-US/docs/Web
+/JavaScript/Reference/Global_Objects/JSON/stringify). Can also pass in `spaces`.
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.jsonfile.writeFile" id="apidoc.element.jsonfile.writeFile">
+        function <span class="apidocSignatureSpan">jsonfile.</span>writeFile
+        <span class="apidocSignatureSpan">(file, obj, options, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function writeFile(file, obj, options, callback) {
+  if (callback == null) {
+    callback = options
+    options = {}
+  }
+  options = options || {}
+  var fs = options.fs || _fs
+
+  var spaces = typeof options === 'object' &amp;&amp; options !== null
+    ? 'spaces' in options
+    ? options.spaces : this.spaces
+    : this.spaces
+
+  var str = ''
+  try {
+    str = JSON.stringify(obj, options ? options.replacer : null, spaces) + '\n'
+  } catch (err) {
+    if (callback) return callback(err, null)
+  }
+
+  fs.writeFile(file, str, options, callback)
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+[![windows Build status](https://img.shields.io/appveyor/ci/jprichardson/node-jsonfile/master.svg?label=windows%20build)](https://
+ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master)
+
+&lt;a href="https://github.com/feross/standard"&gt;&lt;img src="https://cdn.rawgit.com/feross/standard/master
+/sticker.svg" alt="Standard JavaScript" width="100"&gt;&lt;/a&gt;
+
+Why?
+----
+
+Writing `JSON.stringify()` and then `fs.<span class="apidocCodeKeywordSpan">writeFile</span>()` and `JSON.parse()` with `fs.readFile
+()` enclosed in `try/catch` blocks became annoying.
+
+
+
+Installation
+------------
+
+npm install --save jsonfile
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.jsonfile.writeFileSync" id="apidoc.element.jsonfile.writeFileSync">
+        function <span class="apidocSignatureSpan">jsonfile.</span>writeFileSync
+        <span class="apidocSignatureSpan">(file, obj, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function writeFileSync(file, obj, options) {
+  options = options || {}
+  var fs = options.fs || _fs
+
+  var spaces = typeof options === 'object' &amp;&amp; options !== null
+    ? 'spaces' in options
+    ? options.spaces : this.spaces
+    : this.spaces
+
+  var str = JSON.stringify(obj, options.replacer, spaces) + '\n'
+  // not sure if fs.writeFileSync returns anything, but just in case
+  return fs.writeFileSync(file, str, options)
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+```js
+var jsonfile = require('jsonfile')
+
+var file = '/tmp/data.json'
+var obj = {name: 'JP'}
+
+jsonfile.<span class="apidocCodeKeywordSpan">writeFileSync</span>(file, obj)
+```
+
+**formatting with spaces:**
+
+```js
+var jsonfile = require('jsonfile')
+...</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
