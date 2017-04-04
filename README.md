@@ -1,11 +1,13 @@
-# api documentation for  [jsonfile (v2.4.0)](https://github.com/jprichardson/node-jsonfile#readme)  [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-jsonfile.svg)](https://travis-ci.org/npmdoc/node-npmdoc-jsonfile)
+# api documentation for  [jsonfile (v2.4.0)](https://github.com/jprichardson/node-jsonfile#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-jsonfile) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-jsonfile.svg)](https://travis-ci.org/npmdoc/node-npmdoc-jsonfile)
 #### Easily read/write JSON files.
 
 [![NPM](https://nodei.co/npm/jsonfile.png?downloads=true)](https://www.npmjs.com/package/jsonfile)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-jsonfile/build/screen-capture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-jsonfile_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-jsonfile/build..beta..travis-ci.org/apidoc.html)
+[![apidoc](https://npmdoc.github.io/node-npmdoc-jsonfile/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-jsonfile_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-jsonfile/build/apidoc.html)
 
-![package-listing](https://npmdoc.github.io/node-npmdoc-jsonfile/build/screen-capture.npmPackageListing.svg)
+![npmPackageListing](https://npmdoc.github.io/node-npmdoc-jsonfile/build/screenCapture.npmPackageListing.svg)
+
+![npmPackageDependencyTree](https://npmdoc.github.io/node-npmdoc-jsonfile/build/screenCapture.npmPackageDependencyTree.svg)
 
 
 
