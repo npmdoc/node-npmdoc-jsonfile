@@ -1,6 +1,6 @@
 # npmdoc-jsonfile
 
-#### api documentation for  [jsonfile (v2.4.0)](https://github.com/jprichardson/node-jsonfile#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-jsonfile) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-jsonfile.svg)](https://travis-ci.org/npmdoc/node-npmdoc-jsonfile)
+#### basic api documentation for  [jsonfile (v3.0.0)](https://github.com/jprichardson/node-jsonfile#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-jsonfile) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-jsonfile.svg)](https://travis-ci.org/npmdoc/node-npmdoc-jsonfile)
 
 #### Easily read/write JSON files.
 
@@ -39,10 +39,10 @@
     },
     "directories": {},
     "dist": {
-        "shasum": "3736a2b428b87bbda0cc83b53fa3d633a35c2ae8",
-        "tarball": "https://registry.npmjs.org/jsonfile/-/jsonfile-2.4.0.tgz"
+        "shasum": "92e7c7444e5ffd5fa32e6a9ae8b85034df8347d0",
+        "tarball": "https://registry.npmjs.org/jsonfile/-/jsonfile-3.0.0.tgz"
     },
-    "gitHead": "00b3983ac4aade79c64c7a8c2ced257078625c6d",
+    "gitHead": "171315331167a8f83598be2e9aa352cfffaf8123",
     "homepage": "https://github.com/jprichardson/node-jsonfile#readme",
     "keywords": [
         "read",
@@ -57,6 +57,9 @@
     "maintainers": [
         {
             "name": "jprichardson"
+        },
+        {
+            "name": "ryanzim"
         }
     ],
     "name": "jsonfile",
@@ -72,7 +75,8 @@
         "test": "npm run lint && npm run unit",
         "unit": "mocha"
     },
-    "version": "2.4.0"
+    "version": "3.0.0",
+    "bin": {}
 }
 ```
 

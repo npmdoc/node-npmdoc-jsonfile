@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "jsonfile",
-    "description": "#### api documentation for  [jsonfile (v2.4.0)](https://github.com/jprichardson/node-jsonfile#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-jsonfile) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-jsonfile.svg)](https://travis-ci.org/npmdoc/node-npmdoc-jsonfile)",
+    "description": "#### basic api documentation for  [jsonfile (v3.0.0)](https://github.com/jprichardson/node-jsonfile#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-jsonfile.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-jsonfile) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-jsonfile.svg)](https://travis-ci.org/npmdoc/node-npmdoc-jsonfile)",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "jsonfile": "*",
@@ -36,5 +36,5 @@
         "start": "(set -e; export PORT=${PORT:-8080}; utility2 start test.js)",
         "test": "(set -e; export PORT=$(utility2 shServerPortRandom); utility2 test test.js)"
     },
-    "version": "0.0.4"
+    "version": "2017.4.27"
 }
