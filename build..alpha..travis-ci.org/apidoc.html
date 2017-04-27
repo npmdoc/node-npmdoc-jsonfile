@@ -51,7 +51,7 @@
 
         href="https://github.com/jprichardson/node-jsonfile#readme"
 
-    >jsonfile (v2.4.0)</a>
+    >jsonfile (v3.0.0)</a>
 </h1>
 <h4>Easily read/write JSON files.</h4>
 <div class="apidocSectionDiv"><a
@@ -160,24 +160,21 @@
   })
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-[![windows Build status](https://img.shields.io/appveyor/ci/jprichardson/node-jsonfile/master.svg?label=windows%20build)](https://
-ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master)
+  // DO NOT USE &#x27;passParsingErrors&#x27; THE NAME WILL CHANGE!!!, use &#x27;throws&#x27; instead
+  if (&#x27;passParsingErrors&#x27; in options) {
+shouldThrow = options.passParsingErrors
+  } else if (&#x27;throws&#x27; in options) {
+shouldThrow = options.throws
+  }
 
-&#x3c;a href=&#x22;https://github.com/feross/standard&#x22;&#x3e;&#x3c;img src=&#x22;https://cdn.rawgit.com/feross/standard/master
-/sticker.svg&#x22; alt=&#x22;Standard JavaScript&#x22; width=&#x22;100&#x22;&#x3e;&#x3c;/a&#x3e;
+  fs.<span class="apidocCodeKeywordSpan">readFile</span>(file, options, function (err, data) {
+if (err) return callback(err)
 
-Why?
-----
+data = stripBom(data)
 
-Writing `JSON.stringify()` and then `fs.writeFile()` and `JSON.parse()` with `fs.<span class="apidocCodeKeywordSpan">readFile</span
->()` enclosed in `try/catch` blocks became annoying.
-
-
-
-Installation
-------------
-
-npm install --save jsonfile
+var obj
+try {
+  obj = JSON.parse(data, options ? options.reviver : null)
 ...</pre></li>
     </ul>
 
@@ -206,10 +203,9 @@ npm install --save jsonfile
     shouldThrow = options.throws
   }
 
-  var content = fs.readFileSync(file, options)
-  content = stripBom(content)
-
   try {
+    var content = fs.readFileSync(file, options)
+    content = stripBom(content)
     return JSON.parse(content, options.reviver)
   } catch (err) {
     if (shouldThrow) {
@@ -221,21 +217,21 @@ npm install --save jsonfile
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-- `throws` (`boolean`, default: `true`). If `JSON.parse` throws an error, throw the error.
-If `false`, returns `null` for the object.
+if (&#x27;passParsingErrors&#x27; in options) {
+  shouldThrow = options.passParsingErrors
+} else if (&#x27;throws&#x27; in options) {
+  shouldThrow = options.throws
+}
 
-```js
-var jsonfile = require(&#x27;jsonfile&#x27;)
-var file = &#x27;/tmp/data.json&#x27;
-
-console.dir(jsonfile.<span class="apidocCodeKeywordSpan">readFileSync</span>(file))
-```
-
-
-### writeFile(filename, obj, [options], callback)
-
-`options`: Pass in any `fs.writeFile` options or set `replacer` for a [JSON replacer](https://developer.mozilla.org/en-US/docs/Web
-/JavaScript/Reference/Global_Objects/JSON/stringify). Can also pass in `spaces`.
+try {
+  var content = fs.<span class="apidocCodeKeywordSpan">readFileSync</span>(file, options)
+  content = stripBom(content)
+  return JSON.parse(content, options.reviver)
+} catch (err) {
+  if (shouldThrow) {
+    err.message = file + &#x27;: &#x27; + err.message
+    throw err
+  } else {
 ...</pre></li>
     </ul>
 
@@ -271,24 +267,21 @@ console.dir(jsonfile.<span class="apidocCodeKeywordSpan">readFileSync</span>(fil
   fs.writeFile(file, str, options, callback)
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-[![windows Build status](https://img.shields.io/appveyor/ci/jprichardson/node-jsonfile/master.svg?label=windows%20build)](https://
-ci.appveyor.com/project/jprichardson/node-jsonfile/branch/master)
+var str = &#x27;&#x27;
+try {
+  str = JSON.stringify(obj, options ? options.replacer : null, spaces) + &#x27;\n&#x27;
+} catch (err) {
+  if (callback) return callback(err, null)
+}
 
-&#x3c;a href=&#x22;https://github.com/feross/standard&#x22;&#x3e;&#x3c;img src=&#x22;https://cdn.rawgit.com/feross/standard/master
-/sticker.svg&#x22; alt=&#x22;Standard JavaScript&#x22; width=&#x22;100&#x22;&#x3e;&#x3c;/a&#x3e;
+fs.<span class="apidocCodeKeywordSpan">writeFile</span>(file, str, options, callback)
+}
 
-Why?
-----
+function writeFileSync (file, obj, options) {
+options = options || {}
+var fs = options.fs || _fs
 
-Writing `JSON.stringify()` and then `fs.<span class="apidocCodeKeywordSpan">writeFile</span>()` and `JSON.parse()` with `fs.readFile
-()` enclosed in `try/catch` blocks became annoying.
-
-
-
-Installation
-------------
-
-npm install --save jsonfile
+var spaces = typeof options === &#x27;object&#x27; &#x26;&#x26; options !== null
 ...</pre></li>
     </ul>
 
@@ -315,20 +308,21 @@ npm install --save jsonfile
   return fs.writeFileSync(file, str, options)
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
+var spaces = typeof options === &#x27;object&#x27; &#x26;&#x26; options !== null
+  ? &#x27;spaces&#x27; in options
+  ? options.spaces : this.spaces
+  : this.spaces
 
-```js
-var jsonfile = require(&#x27;jsonfile&#x27;)
+var str = JSON.stringify(obj, options.replacer, spaces) + &#x27;\n&#x27;
+// not sure if fs.writeFileSync returns anything, but just in case
+return fs.<span class="apidocCodeKeywordSpan">writeFileSync</span>(file, str, options)
+}
 
-var file = &#x27;/tmp/data.json&#x27;
-var obj = {name: &#x27;JP&#x27;}
-
-jsonfile.<span class="apidocCodeKeywordSpan">writeFileSync</span>(file, obj)
-```
-
-**formatting with spaces:**
-
-```js
-var jsonfile = require(&#x27;jsonfile&#x27;)
+function stripBom (content) {
+// we do this because JSON.parse would convert it to a utf8 string if encoding wasn&#x27;t specified
+if (Buffer.isBuffer(content)) content = content.toString(&#x27;utf8&#x27;)
+content = content.replace(/^\uFEFF/, &#x27;&#x27;)
+return content
 ...</pre></li>
     </ul>
 
